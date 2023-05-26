@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2023 Max Mehl <https://mehl.mx>
+#
+# SPDX-License-Identifier: Apache-2.0
+
 """Misc helper functions for seafile mirror"""
 
 import logging
