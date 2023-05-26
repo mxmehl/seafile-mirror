@@ -1,0 +1,3 @@
+.seafile_backup.db.json
+__pycache__/
+*.log
