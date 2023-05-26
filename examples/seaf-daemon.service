@@ -1,0 +1,18 @@
+[Unit]
+Description=Seafile Daemon
+After=network.target
+After=nfs-client.target
+StartLimitIntervalSec=60
+StartLimitBurst=3
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/seaf-daemon -c /home/seafile/.ccnet -d /home/seafile/config/seafile-data -w /home/seafile/config/seafile
+Restart=always
+RestartSec=10
+# Restart every day
+RuntimeMaxSec=1d
+SyslogIdentifier=seaf-daemon
+
+[Install]
+WantedBy=default.target

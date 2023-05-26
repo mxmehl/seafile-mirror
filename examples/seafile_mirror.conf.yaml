@@ -1,0 +1,18 @@
+# Example configuration file for seafile-mirror
+- server: https://my-seafile-server.tld
+  user: user@example.com
+  password: mysecretpassword
+  # The default resync interval
+  resync_interval_days: 7
+  # Define the libraries which shall be synced
+  libs:
+  - name: Documents
+    # ID of the Seafile library (can be seen in the web UI)
+    id: 53976f13-9d24-4d4a-967b-efb598d542ea
+    # local directory where the mirror shall be created
+    dir: /backup/Documents
+  - name: Pictures
+    id: 12346f13-9d24-4d4a-1234-efb598d555fa
+    dir: /backup/Pictures
+    # A library-specific resync interval
+    resync_interval_days: 31
