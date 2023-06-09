@@ -86,7 +86,7 @@ def main():
         sf_desync_all(cache)
 
     # Create list of libraries we handle(d) for final output
-    libsdone = []
+    libsdone = {"libs": [], "bytes": 0, "time": 0}
 
     # Go through users in config
     for access in config:
@@ -183,16 +183,18 @@ def main():
             )
             sf_runcmd(None, "desync", "-d", libdir)
 
-            # Update libsdone and cache
-            libsdone.append(libname)
-            sf_bump_cache_status(cache, libid, status="synced", duration=syncduration)
-
-            # Get size of directory (libdir) in MB
+            # Get size of directory (libdir) in bytes
             # Note: this is not fully equivalent with what `du` would show. It's
             # caused by the fact that `du` considers filesystem block sizes
-            libdirsize = convert_bytes(
-                sum(f.stat().st_size for f in libdir.glob("**/*") if f.is_file())
+            libdirsize = sum(
+                f.stat().st_size for f in libdir.glob("**/*") if f.is_file()
             )
+
+            # Update libsdone and cache
+            libsdone["libs"].append(libname)
+            libsdone["bytes"] += libdirsize
+            libsdone["time"] += syncduration
+            sf_bump_cache_status(cache, libid, status="synced", duration=syncduration)
 
             logging.info(
                 "Library %s (%s) has been re-synced to %s. Duration: %s minutes. Size: %s",
@@ -200,10 +202,15 @@ def main():
                 libid,
                 libdir,
                 round(syncduration),
-                libdirsize,
+                convert_bytes(libdirsize),
             )
 
-    logging.info("Fully re-synced the following libraries: %s", ", ".join(libsdone))
+    logging.info(
+        "Fully re-synced the following libraries: %s. Total duration: %s minutes. Total size: %s",
+        ", ".join(libsdone["libs"]),
+        round(libsdone["time"]),
+        convert_bytes(libsdone["bytes"]),
+    )
 
 
 if __name__ == "__main__":
