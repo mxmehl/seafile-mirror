@@ -15,7 +15,7 @@ from time import sleep
 import yaml
 
 from functions.cachedb import db_read
-from functions.helpers import findstring, get_lock
+from functions.helpers import convert_bytes, findstring, get_lock
 from functions.seafile import (
     sf_bump_cache_status,
     sf_desync_all,
@@ -187,8 +187,20 @@ def main():
             libsdone.append(libname)
             sf_bump_cache_status(cache, libid, status="synced", duration=syncduration)
 
+            # Get size of directory (libdir) in MB
+            # Note: this is not fully equivalent with what `du` would show. It's
+            # caused by the fact that `du` considers filesystem block sizes
+            libdirsize = convert_bytes(
+                sum(f.stat().st_size for f in libdir.glob("**/*") if f.is_file())
+            )
+
             logging.info(
-                "Library %s (%s) has been re-synced to %s", libname, libid, libdir
+                "Library %s (%s) has been re-synced to %s. Duration: %s minutes. Size: %s",
+                libname,
+                libid,
+                libdir,
+                round(syncduration),
+                libdirsize,
             )
 
     logging.info("Fully re-synced the following libraries: %s", ", ".join(libsdone))

@@ -39,3 +39,14 @@ def findstring(text, string):
 def countlines(string: str) -> int:
     """Count number of lines in a variable"""
     return len(string.splitlines())
+
+
+def convert_bytes(size):
+    """Convert bytes to KB, MB etc depending on size"""
+    power = 1024
+    level = 0
+    labels = {0 : 'B', 1: 'KB', 2: 'MB', 3: 'GB', 4: 'TB'}
+    while size > power:
+        size /= power
+        level += 1
+    return f"{round(size, 2)} {labels[level]}"
