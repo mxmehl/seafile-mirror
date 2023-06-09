@@ -6,6 +6,8 @@ SPDX-License-Identifier: Apache-2.0
 
 # Seafile Mirror
 
+[![REUSE status](https://api.reuse.software/badge/src.mehl.mx/mxmehl/seafile-mirror)](https://api.reuse.software/info/src.mehl.mx/mxmehl/seafile-mirror)
+
 A Python tool to handle clean read-only (re-)syncs of
 [Seafile](https://www.seafile.com) libraries with the intention to mirror them.
 
