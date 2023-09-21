@@ -1,0 +1,39 @@
+[tool.poetry]
+name = "seafile-mirror"
+version = "0.1.0"
+description = "Handle clean read-only (re-)syncs of Seafile libraries to mirror them"
+authors = ["Max Mehl <mail@mehl.mx>"]
+license = "Apache-2.0"
+readme = "README.md"
+repository = "https://src.mehl.mx/mxmehl/seafile-mirror"
+packages = [{ include = "seafile_mirror" }]
+
+[tool.poetry.scripts]
+seafile-mirror = 'seafile_mirror.seafile_mirror:main'
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pyyaml = "^6.0.1"
+
+[tool.poetry.group.dev.dependencies]
+pylint = "^2.17.5"
+isort = "^5.12.0"
+black = "^23.9.1"
+mypy = "^1.5.1"
+pylama = "^8.4.1"
+types-pyyaml = "^6.0.12.11"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+# FORMATTING settings
+[tool.isort]
+profile = "black"
+
+[tool.black]
+line-length = 100
+
+# MYPY settings
+[tool.mypy]
+files = ["seafile_mirror/*.py"]

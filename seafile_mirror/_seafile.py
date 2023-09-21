@@ -10,7 +10,7 @@ import subprocess
 import sys
 from time import sleep
 
-from .cachedb import db_get_library_key, db_update
+from ._cachedb import db_get_library_key, db_update
 
 # Constants
 # Seafile CLI command
@@ -38,7 +38,7 @@ def sf_runcmd(auth: list, *arguments: str) -> str:
     # check for errors
     if ret.returncode != 0:
         logging.error("The command '%s' returned an error: %s", ret.args, ret.stderr)
-        return False
+        return ""
 
     return ret.stdout.decode("UTF-8")
 
@@ -50,20 +50,20 @@ def sf_parse(output: str, fromcommand: str) -> list:
     for lib in output.splitlines()[1:]:
         # If list, split is by " ", and structure is name,id,dir
         if fromcommand == "list":
-            lib = [x.strip() for x in lib.split(" ")]
-            lib = {"name": lib[0], "id": lib[1], "dir": lib[2]}
-            libs.append(lib)
+            lib_info = [x.strip() for x in lib.split(" ")]
+            lib_dict = {"name": lib_info[0], "id": lib_info[1], "dir": lib_info[2]}
+            libs.append(lib_dict)
         # If status, split is by "\t", and structure is name,status,progress
         elif fromcommand == "status":
             lib_tmp = [x.strip() for x in lib.split("\t")]
-            lib = {"name": lib_tmp[0], "status": lib_tmp[1]}
+            lib_dict = {"name": lib_tmp[0], "status": lib_tmp[1]}
             # Add progress if it exists
             try:
-                lib["progress"] = lib_tmp[2]
+                lib_dict["progress"] = lib_tmp[2]
             except IndexError:
-                lib["progress"] = None
+                lib_dict["progress"] = ""
 
-            libs.append(lib)
+            libs.append(lib_dict)
 
     return libs
 
@@ -71,8 +71,8 @@ def sf_parse(output: str, fromcommand: str) -> list:
 def sf_getstatus(libname: str) -> dict:
     """Return the current status of a library (name, status, progress)"""
     # Get output of `status` and parse it
-    libsstatus = sf_runcmd(None, "status")
-    libsstatus = sf_parse(libsstatus, "status")
+    libsstatus_cmd = sf_runcmd([], "status")
+    libsstatus = sf_parse(libsstatus_cmd, "status")
 
     # In the list of statuses, get the one for the requested library. None if no match
     status = next((item for item in libsstatus if item["name"] == libname), None)
@@ -140,10 +140,10 @@ def sf_desync_all(cache):
         sys.exit(1)
 
 
-def sf_waitforsynced(libname) -> int:
+def sf_waitforsynced(libname) -> float:
     """Regularly check status of the library that started to sync"""
     libsynced = False
-    syncwaitmins = 0
+    syncwaitmins: float = 0
     nostatus, nostatus_limit = 0, 10
     while libsynced is not True:
         libstatus = sf_getstatus(libname)
@@ -183,8 +183,8 @@ def sf_waitforsynced(libname) -> int:
                     libname,
                     nostatus_limit,
                 )
-                sf_runcmd(None, "stop")
-                sf_runcmd(None, "start")
+                sf_runcmd([], "stop")
+                sf_runcmd([], "start")
 
         # If library not synced yet or no status available, wait
         if not libsynced:

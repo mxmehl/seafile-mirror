@@ -41,11 +41,12 @@ Seafile servers!
 ## Install
 
 The tool depends on the following applications:
-* `Python 3` and its library `yaml`
+* `Python 3`
+* `poetry` (e.g. by `pip3 install poetry`)
 * [`seafile-cli`](https://help.seafile.com/syncing_client/linux-cli/), available
   e.g. in [Debian](https://packages.debian.org/bullseye/seafile-cli)
 
-You can execute the tool with `python3 seafile_mirror.py`. The `--help` flag
+You can execute the tool with `poetry run seafile-mirror`. The `--help` flag
 informs you about the required and available commands.
 
 There is also an [Ansible

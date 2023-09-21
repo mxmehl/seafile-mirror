@@ -14,9 +14,9 @@ from time import sleep
 
 import yaml
 
-from functions.cachedb import db_read
-from functions.helpers import convert_bytes, findstring, get_lock
-from functions.seafile import (
+from ._cachedb import db_read
+from ._helpers import convert_bytes, findstring, get_lock
+from ._seafile import (
     sf_bump_cache_status,
     sf_desync_all,
     sf_lastsync_old_enough,
@@ -52,6 +52,13 @@ parser.add_argument(
 
 def main():
     """Main function"""
+    args = parser.parse_args()
+    # Set files depending on configdir
+    configdir = args.configdir.rstrip("/") + "/"
+    configfile = configdir + "seafile_mirror.conf.yaml"
+    cachefile = configdir + ".seafile_mirror.db.json"
+    logfile = configdir + "seafile_mirror.log"
+
     # Logging
     log = logging.getLogger()
     logging.basicConfig(
@@ -214,10 +221,4 @@ def main():
 
 
 if __name__ == "__main__":
-    args = parser.parse_args()
-    # Set files depending on configdir
-    configdir = args.configdir.rstrip("/") + "/"
-    configfile = configdir + "seafile_mirror.conf.yaml"
-    cachefile = configdir + ".seafile_mirror.db.json"
-    logfile = configdir + "seafile_mirror.log"
     main()
