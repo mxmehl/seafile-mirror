@@ -2,6 +2,9 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
+dist/
+venv/
 .seafile_mirror.db.json
+/seafile_mirror.conf.yaml
 __pycache__/
 *.log
