@@ -43,9 +43,7 @@ def db_update(dbdict, libid, **kwargs):
     if libid not in dbdict:
         dbdict[libid] = {}
     for key, value in kwargs.items():
-        logging.debug(
-            "Updating '%s' of library '%s' in in-memory cache dictionary", key, libid
-        )
+        logging.debug("Updating '%s' of library '%s' in in-memory cache dictionary", key, libid)
         dbdict[libid][key] = value
 
     db_write(dbdict)

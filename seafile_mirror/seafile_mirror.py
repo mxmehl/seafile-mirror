@@ -121,16 +121,12 @@ def main():
             libid = lib["id"]
             # Set resync interval if there is a lib-specific setting. Otherwise default
             libresyncinterval = (
-                lib["resync_interval_days"]
-                if "resync_interval_days" in lib
-                else resyncinterval
+                lib["resync_interval_days"] if "resync_interval_days" in lib else resyncinterval
             )
 
             # Check if last sync of library is older than resync_interval_days
             if sf_lastsync_old_enough(cache, libid, args.force, libresyncinterval):
-                logging.info(
-                    "Starting to re-sync library %s (%s) to %s", libname, libid, libdir
-                )
+                logging.info("Starting to re-sync library %s (%s) to %s", libname, libid, libdir)
             else:
                 logging.info(
                     "Local mirror of library %s (%s) at %s is still recent enough. Skipping it.",
@@ -193,9 +189,7 @@ def main():
             # Get size of directory (libdir) in bytes
             # Note: this is not fully equivalent with what `du` would show. It's
             # caused by the fact that `du` considers filesystem block sizes
-            libdirsize = sum(
-                f.stat().st_size for f in libdir.glob("**/*") if f.is_file()
-            )
+            libdirsize = sum(f.stat().st_size for f in libdir.glob("**/*") if f.is_file())
 
             # Update libsdone and cache
             libsdone["libs"].append(libname)
