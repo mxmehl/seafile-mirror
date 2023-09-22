@@ -62,14 +62,14 @@ service](examples/seaf-daemon.service).
 Configuration is done in a YAML file called `seafile_mirror.conf.yaml`. You can
 find an example [here](examples/seafile_mirror.conf.yaml).
 
-If that configuration file resides in the same location as the
-`seafile_mirror.py` file you are running, you should provide `--configdir ./`.
+If that configuration file resides in the same location your current working
+directory, you should provide `--configdir ./`.
 
 ## Logging and caching
 
 The tool creates `seafile_mirror.log` in addition to the log to the standard
-output. With `-v` you can print DEBUG messages that will help you in case of
-problems.
+output in the configuration directory. With `-v` you can print DEBUG messages
+that will help you in case of problems.
 
 It also caches the current status of synced libraries and their latest full
 download in the file `.seafile_mirror.db.json`. Do not delete this file unless
