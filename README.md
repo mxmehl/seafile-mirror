@@ -7,6 +7,8 @@ SPDX-License-Identifier: Apache-2.0
 # Seafile Mirror
 
 [![REUSE status](https://api.reuse.software/badge/src.mehl.mx/mxmehl/seafile-mirror)](https://api.reuse.software/info/src.mehl.mx/mxmehl/seafile-mirror)
+[![The latest version of reuse can be found on PyPI.](https://img.shields.io/pypi/v/seafile-mirror.svg)](https://pypi.org/project/seafile-mirror/)
+[![Information on what versions of Python the tool supports can be found on PyPI.](https://img.shields.io/pypi/pyversions/seafile-mirror.svg)](https://pypi.org/project/seafile-mirror/)
 
 A Python tool to handle clean read-only (re-)syncs of
 [Seafile](https://www.seafile.com) libraries with the intention to mirror them.
