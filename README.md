@@ -42,16 +42,18 @@ Seafile servers!
 
 The tool depends on the following applications:
 * `Python 3`
-* `poetry` (e.g. by `pip3 install poetry`)
 * [`seafile-cli`](https://help.seafile.com/syncing_client/linux-cli/), available
   e.g. in [Debian](https://packages.debian.org/bullseye/seafile-cli)
 
-You can execute the tool with `poetry run seafile-mirror`. The `--help` flag
-informs you about the required and available commands.
+You can install the latest release via `pip3 install seafile-mirror`.
+
+The tool is executable by `seafile-mirror`. The `--help` flag informs you about
+the required and available commands.
 
 There is also an [Ansible
 role](https://src.mehl.mx/mxmehl/seafile-mirror-ansible) that takes care of
-installing the tool, setting up a systemd service, and running it daily.
+installing the tool via `pipx`, setting up a systemd service, and running it
+daily.
 
 To keep the Seafile daemon that is required for `seafile-cli` running in the
 background, check out this [exemplary systemd
@@ -74,3 +76,12 @@ that will help you in case of problems.
 It also caches the current status of synced libraries and their latest full
 download in the file `.seafile_mirror.db.json`. Do not delete this file unless
 you don't mind that the tool will re-sync all libraries in the next run.
+
+## Contribute and Development
+
+Contributions are welcome! The development is easiest with `poetry`: `poetry
+install` and `poetry run seafile-mirror` will get you started.
+
+## License
+
+Apache-2.0, Copyright Max Mehl
