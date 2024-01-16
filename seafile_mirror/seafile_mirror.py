@@ -50,7 +50,7 @@ parser.add_argument(
 )
 
 
-def main():
+def main():  # pylint: disable=too-many-locals, too-many-statements
     """Main function"""
     args = parser.parse_args()
     # Set files depending on configdir
