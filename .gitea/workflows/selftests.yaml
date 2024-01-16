@@ -24,7 +24,9 @@ jobs:
       - name: Install package
         run: pip3 install dist/seafile_mirror-*.tar.gz
       - name: Run package
-        run: seafile-mirror --help
+        run: |
+          seafile-mirror --version
+          seafile-mirror --help
 
   # Run tool and sync a test library
   test-sync:
