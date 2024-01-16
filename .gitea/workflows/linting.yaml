@@ -1,0 +1,41 @@
+# SPDX-FileCopyrightText: 2023 Max Mehl <https://mehl.mx>
+#
+# SPDX-License-Identifier: Apache-2.0
+
+name: Python Linters
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  pylint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        uses: ./.gitea/actions/poetrybuild
+      - name: Lint with pylint
+        run: poetry run pylint seafile_mirror
+
+  formatting:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        uses: ./.gitea/actions/poetrybuild
+      - name: Test formatting with isort and black
+        run: |
+          poetry run isort --check seafile_mirror/
+          poetry run black .
+
+  mypy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        uses: ./.gitea/actions/poetrybuild
+      - name: Test typing with mypy
+        run: poetry run mypy

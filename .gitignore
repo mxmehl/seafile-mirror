@@ -8,3 +8,4 @@ venv/
 /seafile_mirror.conf.yaml
 __pycache__/
 *.log
+tests/ci-test/

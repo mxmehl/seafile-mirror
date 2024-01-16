@@ -1,0 +1,19 @@
+# SPDX-FileCopyrightText: 2023 DB Systel GmbH
+#
+# SPDX-License-Identifier: Apache-2.0
+
+name: "Reusable Poetry build workflow"
+inputs:
+  poetry_install_args:
+    default: ""
+    description: "Value for additional poetry install arguments"
+    required: false
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install poetry
+      run: pip install poetry
+    - name: Install poetry package
+      run: poetry install --no-interaction ${{ inputs.poetry_install_args }}
+      shell: bash

@@ -1,0 +1,55 @@
+# SPDX-FileCopyrightText: 2023 DB Systel GmbH
+# SPDX-FileCopyrightText: 2023 Max Mehl <https://mehl.mx>
+#
+# SPDX-License-Identifier: Apache-2.0
+
+name: Selftests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  # Test building the package and installing it via pip3
+  test-build-install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install poetry
+        run: pip install poetry
+      - name: Build package
+        run: poetry build
+      - name: Install package
+        run: pip3 install dist/seafile_mirror-*.tar.gz
+      - name: Run package
+        run: seafile-mirror --help
+
+  # Run tool and sync a test library
+  test-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        uses: ./.gitea/actions/poetrybuild
+        # using minimal set of dependencies
+        with:
+          poetry_install_args: "--without dev"
+      - name: Install seaf-cli
+        run: |
+          apt-get update
+          apt-get install -y seafile-cli
+      - name: Configure seaf-cli and start daemon
+        run: |
+          seaf-cli init -d /tmp
+          seaf-cli start
+      - name: Fill configuration for test library
+        run: |
+          sed -i "s|__seafile_server__|${{ secrets.SEAFILE_SERVER }}|" tests/seafile_mirror.conf.yaml
+          sed -i "s|__seafile_user__|${{ secrets.SEAFILE_USER }}|" tests/seafile_mirror.conf.yaml
+          sed -i "s|__seafile_pass__|${{ secrets.SEAFILE_PASS }}|" tests/seafile_mirror.conf.yaml
+      - name: Sync the library
+        run: poetry run seafile-mirror -c tests -v
+      - name: Attempt to find expected string in library
+        run: grep "__ci_test_expect__" tests/ci-test/testfile.txt
