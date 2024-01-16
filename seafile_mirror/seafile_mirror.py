@@ -14,6 +14,7 @@ from time import sleep
 
 import yaml
 
+from . import __version__
 from ._cachedb import db_read
 from ._helpers import convert_bytes, findstring, get_lock
 from ._seafile import (
@@ -48,9 +49,10 @@ parser.add_argument(
     default=False,
     help="Print and log DEBUG messages",
 )
+parser.add_argument("--version", action="version", version="%(prog)s " + __version__)
 
 
-def main():
+def main():  # pylint: disable=too-many-locals, too-many-statements
     """Main function"""
     args = parser.parse_args()
     # Set files depending on configdir

@@ -1,0 +1,18 @@
+# SPDX-FileCopyrightText: 2023 Max Mehl <https://mehl.mx>
+#
+# SPDX-License-Identifier: Apache-2.0
+
+# Configuration file for seafile-mirror which will be filled in and applied in
+# the CI test
+- server: __seafile_server__
+  user: __seafile_user__
+  password: __seafile_pass__
+  # The default resync interval
+  resync_interval_days: 7
+  # Define the libraries which shall be synced
+  libs:
+  - name: ci-test
+    # ID of the Seafile library (can be seen in the web UI)
+    id: 558667f5-cee2-443d-8f8e-668e70a23e9f
+    # local directory where the mirror shall be created
+    dir: tests/ci-test
