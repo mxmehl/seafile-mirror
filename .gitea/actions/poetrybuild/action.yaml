@@ -12,8 +12,10 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Add pipx to PATH
+      run: echo "/root/.local/bin" >> ${GITHUB_PATH}
     - name: Install poetry
-      run: pip install poetry
+      run: pipx install poetry
     - name: Install poetry package
       run: poetry install --no-interaction ${{ inputs.poetry_install_args }}
       shell: bash

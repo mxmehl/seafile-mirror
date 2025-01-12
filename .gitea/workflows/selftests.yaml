@@ -14,11 +14,13 @@ on:
 jobs:
   # Test building the package and installing it via pip3
   test-build-install:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
+      - name: Add pipx to PATH
+        run: echo "/root/.local/bin" >> ${GITHUB_PATH}
       - name: Install poetry
-        run: pip install poetry
+        run: pipx install poetry
       - name: Build package
         run: poetry build
       - name: Install package
