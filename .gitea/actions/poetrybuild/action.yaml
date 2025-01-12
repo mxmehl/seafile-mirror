@@ -12,12 +12,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    # - run: printenv
-    # - run: echo /root/.local/bin >> $GITHUB_PATH
-    - run: echo "/root/.local/bin" >> $PATH
-    - name: Test
     - name: Add pipx to PATH
-      if: github.actor == 'nektos/act'
       run: echo "/root/.local/bin" >> ${GITHUB_PATH}
     - run: echo $PATH
     - run: exit 1
