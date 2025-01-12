@@ -30,7 +30,6 @@ parser.add_argument("-c", "--configdir", required=True, help="The config directo
 parser.add_argument(
     "-l",
     "--logfile",
-    required=True,
     help="The path to the logfile. Default: <configdir>/seafile_mirror.log",
 )
 parser.add_argument(

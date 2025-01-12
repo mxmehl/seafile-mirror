@@ -14,7 +14,7 @@ on:
 jobs:
   # Test building the package and installing it via pip3
   test-build-install:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
       - name: Add pipx to PATH
