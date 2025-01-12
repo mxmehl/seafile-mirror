@@ -12,10 +12,8 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Set PATH
-      run: export PATH=$PATH:~/.local/bin
     - run: echo "gitea $GITEA_PATH"
-    - run: echo "github $GITHUB_PATH"
+    - run: printenv
     - name: Test
       run: echo $PATH
     - name: Install poetry
