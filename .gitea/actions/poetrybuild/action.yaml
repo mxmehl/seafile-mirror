@@ -16,7 +16,10 @@ runs:
     # - run: echo /root/.local/bin >> $GITHUB_PATH
     - run: echo "/root/.local/bin" >> $PATH
     - name: Test
-      run: echo $PATH
+    - name: Add pipx to PATH
+      if: github.actor == 'nektos/act'
+      run: echo "/root/.local/bin" >> ${GITHUB_PATH}
+    - run: echo $PATH
     - run: exit 1
     - name: Install poetry
       run: pipx install poetry
