@@ -14,8 +14,6 @@ runs:
   steps:
     - name: Add pipx to PATH
       run: echo "/root/.local/bin" >> ${GITHUB_PATH}
-    - run: echo $PATH
-    - run: exit 1
     - name: Install poetry
       run: pipx install poetry
     - name: Install poetry package
