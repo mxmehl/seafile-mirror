@@ -12,10 +12,12 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: echo "gitea $GITEA_PATH"
     - run: printenv
+    - run: echo /root/.local/bin >> $GITHUB_PATH
+    - run: echo /root/.local/bin >> $PATH
     - name: Test
       run: echo $PATH
+    - run: exit 1
     - name: Install poetry
       run: pipx install poetry
     - name: Install poetry package
