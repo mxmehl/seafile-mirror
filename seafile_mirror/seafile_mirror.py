@@ -28,6 +28,12 @@ from ._seafile import (
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument("-c", "--configdir", required=True, help="The config directory")
 parser.add_argument(
+    "-l",
+    "--logfile",
+    required=True,
+    help="The path to the logfile. Default: <configdir>/seafile_mirror.log",
+)
+parser.add_argument(
     "-d",
     "--dry",
     action="store_true",
@@ -59,7 +65,10 @@ def main():  # pylint: disable=too-many-locals, too-many-statements
     configdir = args.configdir.rstrip("/") + "/"
     configfile = configdir + "seafile_mirror.conf.yaml"
     cachefile = configdir + ".seafile_mirror.db.json"
-    logfile = configdir + "seafile_mirror.log"
+    if args.logfile:
+        logfile = args.logfile
+    else:
+        logfile = configdir + "seafile_mirror.log"
 
     # Logging
     log = logging.getLogger()
