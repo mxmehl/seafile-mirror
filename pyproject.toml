@@ -4,7 +4,7 @@
 
 [tool.poetry]
 name = "seafile-mirror"
-version = "0.2.0"
+version = "0.2.1"
 description = "Handle clean read-only (re-)syncs of Seafile libraries to mirror them"
 authors = ["Max Mehl <mail@mehl.mx>"]
 license = "Apache-2.0"
