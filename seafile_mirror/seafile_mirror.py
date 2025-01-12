@@ -57,7 +57,7 @@ parser.add_argument(
 parser.add_argument("--version", action="version", version="%(prog)s " + __version__)
 
 
-def main():  # pylint: disable=too-many-locals, too-many-statements
+def main():  # pylint: disable=too-many-locals, too-many-statements, too-many-branches
     """Main function"""
     args = parser.parse_args()
     # Set files depending on configdir
