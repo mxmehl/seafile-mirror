@@ -26,6 +26,7 @@ black = "^24.0.0"
 mypy = "^1.5.1"
 pylama = "^8.4.1"
 types-pyyaml = "^6.0.12.11"
+bump-my-version = "^0.29.0"
 
 [build-system]
 requires = ["poetry-core"]
@@ -41,3 +42,16 @@ line-length = 100
 # MYPY settings
 [tool.mypy]
 files = ["seafile_mirror/*.py"]
+
+# Bump-My-Version
+[tool.bumpversion]
+commit = true
+tag = true
+allow_dirty = false
+tag_name = "v{new_version}"
+
+[[tool.bumpversion.files]]
+filename = "pyproject.toml"
+regex = true
+search = "^version = \"{current_version}\""
+replace = "version = \"{new_version}\""
