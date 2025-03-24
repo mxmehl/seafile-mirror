@@ -2,9 +2,10 @@
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   extends: ["local>renovate-bot/renovate-config"],
   "packageRules": [
-    // Merge all dev dependencies, even major versions
+    // Group and merge all dev dependencies, even major versions
     {
       "matchDepTypes": ["dev"],
+      "groupName": "all-dev-dependencies",
       "automerge": true
     },
     // Merge all other patch and minor dependencies
