@@ -16,4 +16,4 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Check REUSE Compliance
-        uses: https://github.com/fsfe/reuse-action@v5
+        uses: https://github.com/fsfe/reuse-action@v6
