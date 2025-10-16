@@ -20,8 +20,8 @@ python = "^3.10"
 pyyaml = "^6.0.1"
 
 [tool.poetry.group.dev.dependencies]
-pylint = "^3.0.0"
-isort = "^6.0.0"
+pylint = "^4.0.0"
+isort = "^7.0.0"
 black = "^25.0.0"
 mypy = "^1.5.1"
 pylama = "^8.4.1"
