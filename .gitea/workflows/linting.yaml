@@ -14,7 +14,7 @@ jobs:
   pylint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Install dependencies
         uses: ./.gitea/actions/poetrybuild
       - name: Lint with pylint
@@ -23,7 +23,7 @@ jobs:
   formatting:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Install dependencies
         uses: ./.gitea/actions/poetrybuild
       - name: Test formatting with isort and black
@@ -34,7 +34,7 @@ jobs:
   mypy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Install dependencies
         uses: ./.gitea/actions/poetrybuild
       - name: Test typing with mypy
