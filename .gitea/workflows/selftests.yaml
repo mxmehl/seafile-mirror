@@ -16,7 +16,7 @@ jobs:
   test-build-install:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Add pipx to PATH
         run: echo "/root/.local/bin" >> ${GITHUB_PATH}
       - name: Install poetry
@@ -34,7 +34,7 @@ jobs:
   test-sync:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Install dependencies
         uses: ./.gitea/actions/poetrybuild
         # using minimal set of dependencies
