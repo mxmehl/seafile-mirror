@@ -81,8 +81,7 @@ you don't mind that the tool will re-sync all libraries in the next run.
 
 ## Contribute and Development
 
-Contributions are welcome! The development is easiest with `poetry`: `poetry
-install` and `poetry run seafile-mirror` will get you started.
+Contributions are welcome! The development is easiest with `uv`: `uv sync` and `uv run seafile-mirror` will get you started.
 
 ## License
 

@@ -2,20 +2,20 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-"""Functions for cache DB for seafile mirror"""
+"""Functions for cache DB for seafile mirror."""
 
 import json
 import logging
 from pathlib import Path
 
 
-def db_read(cachefile) -> dict:
-    """Get the cache database file as a dict"""
+def db_read(cachefile: str) -> dict:
+    """Get the cache database file as a dict."""
     dbpath = Path(cachefile)
 
     # If DB file exists, return JSON as dict
     if dbpath.is_file():
-        with open(cachefile, "r", encoding="UTF-8") as dbread:
+        with open(cachefile, encoding="UTF-8") as dbread:
             logging.debug("Reading cache file '%s' from disk", cachefile)
             cachedb = json.load(dbread)
     else:
@@ -28,8 +28,8 @@ def db_read(cachefile) -> dict:
     return cachedb
 
 
-def db_write(dbdict):
-    """Update/create the cache database file with a dict"""
+def db_write(dbdict: dict) -> None:
+    """Update/create the cache database file with a dict."""
     with open(dbdict["_cachefile"], "w", encoding="UTF-8") as dbwrite:
         logging.debug("Writing cache file '%s' to disk", dbdict["_cachefile"])
         json.dump(dbdict, dbwrite, indent=2)
@@ -37,8 +37,8 @@ def db_write(dbdict):
         dbwrite.write("\n")
 
 
-def db_update(dbdict, libid, **kwargs):
-    """Update the cached key/values for a specific library, and write the cache file"""
+def db_update(dbdict: dict, libid: str, **kwargs: object) -> None:
+    """Update the cached key/values for a specific library, and write the cache file."""
     # Create dict entry for library if it doesn't exist yet
     if libid not in dbdict:
         dbdict[libid] = {}
@@ -49,8 +49,8 @@ def db_update(dbdict, libid, **kwargs):
     db_write(dbdict)
 
 
-def db_get_library_key(dbdict, libid, key):
-    """Get value of requested key from the cache dictionary"""
+def db_get_library_key(dbdict: dict, libid: str, key: str) -> str | None:
+    """Get value of requested key from the cache dictionary."""
     if libid in dbdict and key in dbdict[libid]:
         return dbdict[libid][key]
 
