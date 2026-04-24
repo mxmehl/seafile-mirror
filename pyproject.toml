@@ -4,7 +4,7 @@
 
 [project]
 name = "seafile-mirror"
-version = "0.2.2"
+version = "0.2.3"
 description = "Handle clean read-only (re-)syncs of Seafile libraries to mirror them"
 authors = [{ name = "Max Mehl", email = "mail@mehl.mx" }]
 requires-python = ">=3.10,<4"
