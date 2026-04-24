@@ -77,8 +77,8 @@ jobs:
           uv_args: --no-dev
       - name: Install seaf-cli
         run: |
-          apt-get update
-          apt-get install -y seafile-cli
+          sudo apt-get update
+          sudo apt-get install -y seafile-cli
       - name: Configure seaf-cli and start daemon
         run: |
           seaf-cli init -d /tmp
