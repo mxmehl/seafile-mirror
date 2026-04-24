@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-"""Functions specific to Seafile for seafile mirror"""
+"""Functions specific to Seafile for seafile mirror."""
 
 import datetime
 import logging
@@ -17,15 +17,14 @@ from ._cachedb import db_get_library_key, db_update
 CMD = "seaf-cli"
 
 
-def sf_runcmd(auth: list, *arguments: str) -> str:
-    """Run a seaf-cli command and return the output (stdout)"""
+def sf_runcmd(auth: list | None, *arguments: str) -> str:
+    """Run a seaf-cli command and return the output (stdout)."""
     # Build command list
     # base command (seaf-cli)
     cmdargs = [CMD]
 
     # Arguments
-    for arg in arguments:
-        cmdargs.append(arg)
+    cmdargs.extend(arguments)
 
     # Optional authentication as list
     # "-s", server, "-u", user, "-p", password
@@ -33,7 +32,7 @@ def sf_runcmd(auth: list, *arguments: str) -> str:
         cmdargs.extend(["-s", auth[0], "-u", auth[1], "-p", auth[2]])
 
     # run command
-    ret = subprocess.run(cmdargs, capture_output=True, check=False)
+    ret = subprocess.run(cmdargs, capture_output=True, check=False)  # noqa: S603
 
     # check for errors
     if ret.returncode != 0:
@@ -44,7 +43,7 @@ def sf_runcmd(auth: list, *arguments: str) -> str:
 
 
 def sf_parse(output: str, fromcommand: str) -> list:
-    """Parse the output of `list` and `status`, return a list of dicts"""
+    """Parse the output of `list` and `status`, return a list of dicts."""
     libs = []
     # Read line by line, skip first line
     for lib in output.splitlines()[1:]:
@@ -69,7 +68,7 @@ def sf_parse(output: str, fromcommand: str) -> list:
 
 
 def sf_getstatus(libname: str) -> dict:
-    """Return the current status of a library (name, status, progress)"""
+    """Return the current status of a library (name, status, progress)."""
     # Get output of `status` and parse it
     libsstatus_cmd = sf_runcmd([], "status")
     libsstatus = sf_parse(libsstatus_cmd, "status")
@@ -86,8 +85,8 @@ def sf_getstatus(libname: str) -> dict:
     return status
 
 
-def sf_desync_all(cache):
-    """Desync all libraries that are in `list` and `status`"""
+def sf_desync_all(cache: dict) -> None:
+    """Desync all libraries that are in `list` and `status`."""
     # Firstly, go through libslist
     libslist = sf_runcmd(None, "list")
     libslist = sf_parse(libslist, "list")
@@ -140,8 +139,8 @@ def sf_desync_all(cache):
         sys.exit(1)
 
 
-def sf_waitforsynced(libname) -> float:
-    """Regularly check status of the library that started to sync"""
+def sf_waitforsynced(libname: str) -> float:
+    """Regularly check status of the library that started to sync."""
     libsynced = False
     syncwaitmins: float = 0
     nostatus, nostatus_limit = 0, 10
@@ -194,7 +193,7 @@ def sf_waitforsynced(libname) -> float:
                 # wait 15 seconds for 1 minute in total
                 sleep(15)
                 syncwaitmins += 0.25
-            elif syncwaitmins < 10:
+            elif syncwaitmins < 10:  # noqa: PLR2004
                 # wait 60 seconds for 10 minutes in total
                 sleep(60)
                 syncwaitmins += 1
@@ -206,12 +205,13 @@ def sf_waitforsynced(libname) -> float:
     return syncwaitmins
 
 
-def sf_bump_cache_status(dbdict, libid, status, duration=0) -> None:
-    """Update the sync state of a library in the cache database"""
+def sf_bump_cache_status(dbdict: dict, libid: str, status: str, duration: float = 0) -> None:
+    """Update the sync state of a library in the cache database."""
     logging.debug("Updating cache for library '%s' to status '%s'", libid, status)
     # Library has been successfully synced
     if status == "synced":
-        lastsync = datetime.datetime.now() - datetime.timedelta(minutes=duration + 2)
+        lastsync = datetime.datetime.now()  # noqa: DTZ005
+        lastsync = lastsync - datetime.timedelta(minutes=duration + 2)
         db_update(
             dbdict,
             libid,
@@ -223,8 +223,8 @@ def sf_bump_cache_status(dbdict, libid, status, duration=0) -> None:
         db_update(dbdict, libid, status=status)
 
 
-def sf_lastsync_old_enough(dbdict, libid, force, resyncinterval) -> bool:
-    """Find out if lastsync time of library is older than resyncinterval"""
+def sf_lastsync_old_enough(dbdict: dict, libid: str, force: bool, resyncinterval: int) -> bool:
+    """Find out if lastsync time of library is older than resyncinterval."""
     # Get lastsync key from cache for this library
     lastsync = db_get_library_key(dbdict, libid, "lastsync")
     # Check if there actually has been an entry for the last sync
@@ -232,7 +232,7 @@ def sf_lastsync_old_enough(dbdict, libid, force, resyncinterval) -> bool:
         # Convert to datetime object
         lastsync = datetime.datetime.fromisoformat(lastsync)
         # Test if time difference (hours) is smaller than resyncinterval
-        if datetime.datetime.now() - lastsync < datetime.timedelta(days=resyncinterval):
+        if datetime.datetime.now() - lastsync < datetime.timedelta(days=resyncinterval):  # noqa: DTZ005
             logging.debug(
                 "Last sync of library '%s' is newer than limit (%s days)",
                 libid,

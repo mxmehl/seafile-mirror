@@ -1,10 +1,8 @@
-#!/usr/bin/env python3
-
 # SPDX-FileCopyrightText: 2023 Max Mehl <https://mehl.mx>
 #
 # SPDX-License-Identifier: Apache-2.0
 
-"""Handle clean read-only (re-)syncs of Seafile libraries to mirror them"""
+"""Handle clean read-only (re-)syncs of Seafile libraries to mirror them."""
 
 import argparse
 import logging
@@ -57,27 +55,23 @@ parser.add_argument(
 parser.add_argument("--version", action="version", version="%(prog)s " + __version__)
 
 
-def main():  # pylint: disable=too-many-locals, too-many-statements, too-many-branches
-    """Main function"""
+def main() -> None:  # noqa: PLR0915
+    """Main function."""
     args = parser.parse_args()
     # Set files depending on configdir
     configdir = args.configdir.rstrip("/") + "/"
     configfile = configdir + "seafile_mirror.conf.yaml"
     cachefile = configdir + ".seafile_mirror.db.json"
-    if args.logfile:
-        logfile = args.logfile
-    else:
-        logfile = configdir + "seafile_mirror.log"
+    logfile = args.logfile or configdir + "seafile_mirror.log"
 
     # Logging
     log = logging.getLogger()
     logging.basicConfig(
-        encoding="utf-8",
         format="[%(asctime)s] %(levelname)s: %(message)s",
         datefmt="%Y-%m-%d %H:%M:%S",
         # Log to file and stdout
         handlers=[
-            logging.FileHandler(logfile),
+            logging.FileHandler(logfile, encoding="utf-8"),
             logging.StreamHandler(),
         ],
     )
@@ -91,7 +85,7 @@ def main():  # pylint: disable=too-many-locals, too-many-statements, too-many-br
     get_lock("seafile_backup")
 
     # Read configfile
-    with open(configfile, "r", encoding="UTF-8") as yamlfile:
+    with open(configfile, encoding="UTF-8") as yamlfile:
         config = yaml.safe_load(yamlfile)
 
     # Populate cache dictionary
@@ -130,9 +124,7 @@ def main():  # pylint: disable=too-many-locals, too-many-statements, too-many-br
             libname = lib["name"]
             libid = lib["id"]
             # Set resync interval if there is a lib-specific setting. Otherwise default
-            libresyncinterval = (
-                lib["resync_interval_days"] if "resync_interval_days" in lib else resyncinterval
-            )
+            libresyncinterval = lib.get("resync_interval_days", resyncinterval)
 
             # Check if last sync of library is older than resync_interval_days
             if sf_lastsync_old_enough(cache, libid, args.force, libresyncinterval):
@@ -179,7 +171,7 @@ def main():  # pylint: disable=too-many-locals, too-many-statements, too-many-br
 
             # Trigger sync of library
             logging.debug("Starting to sync library %s to %s", libname, libdir)
-            sf_runcmd(authlist, "sync", "-l", libid, "-d", libdir)
+            sf_runcmd(authlist, "sync", "-l", libid, "-d", str(libdir))
             sf_bump_cache_status(cache, libid, status="started")
 
             # Sleep a second to populate `status`
@@ -194,7 +186,7 @@ def main():  # pylint: disable=too-many-locals, too-many-statements, too-many-br
                 libname,
                 libdir,
             )
-            sf_runcmd(None, "desync", "-d", libdir)
+            sf_runcmd(None, "desync", "-d", str(libdir))
 
             # Get size of directory (libdir) in bytes
             # Note: this is not fully equivalent with what `du` would show. It's

@@ -2,51 +2,79 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-[tool.poetry]
+[project]
 name = "seafile-mirror"
 version = "0.2.2"
 description = "Handle clean read-only (re-)syncs of Seafile libraries to mirror them"
-authors = ["Max Mehl <mail@mehl.mx>"]
-license = "Apache-2.0"
+authors = [{ name = "Max Mehl", email = "mail@mehl.mx" }]
+requires-python = ">=3.10,<4"
 readme = "README.md"
-repository = "https://src.mehl.mx/mxmehl/seafile-mirror"
-packages = [{ include = "seafile_mirror" }]
+license = "Apache-2.0"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+]
+dependencies = ["pyyaml>=6.0.1,<7"]
 
-[tool.poetry.scripts]
-seafile-mirror = 'seafile_mirror.seafile_mirror:main'
+[project.urls]
+Repository = "https://src.mehl.mx/mxmehl/seafile-mirror"
 
-[tool.poetry.dependencies]
-python = "^3.10"
-pyyaml = "^6.0.1"
+[project.scripts]
+seafile-mirror = "seafile_mirror.seafile_mirror:main"
 
-[tool.poetry.group.dev.dependencies]
-pylint = "^4.0.0"
-isort = "^8.0.0"
-black = "^26.0.0"
-mypy = "^1.5.1"
-pylama = "^8.4.1"
-types-pyyaml = "^6.0.12.11"
-bump-my-version = "^1.0.0"
+[dependency-groups]
+dev = [
+    "ruff>=0.15.10",
+    "ty>=0.0.29",
+    "bump-my-version>=1.2.4,<2",
+]
+
+[tool.uv]
+default-groups = "all"
+
+[tool.uv.build-backend]
+module-name = ["seafile_mirror"]
+module-root = ""
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["uv_build>=0.11.7,<0.12.0"]
+build-backend = "uv_build"
 
-# FORMATTING settings
-[tool.isort]
-profile = "black"
-
-[tool.black]
+# FORMATTING and LINTING settings
+[tool.ruff]
 line-length = 100
 
-# MYPY settings
-[tool.mypy]
-files = ["seafile_mirror/*.py"]
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "T",
+    "FBT",
+    "LOG015",
+    "COM812",
+    "ERA001",
+    "S310",
+    "D205",
+    "D212",
+    "PTH123",
+]
+[tool.ruff.lint.extend-per-file-ignores]
+"tests/*" = ["S101", "PLR", "PT011", "ANN001"]
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+# TY settings
+[tool.ty.src]
+include = ["seafile_mirror"]
 
 # Bump-My-Version
 [tool.bumpversion]
 commit = true
 tag = true
+sign_tags = true
 allow_dirty = false
 tag_name = "v{new_version}"
 
@@ -55,3 +83,16 @@ filename = "pyproject.toml"
 regex = true
 search = "^version = \"{current_version}\""
 replace = "version = \"{new_version}\""
+
+[[tool.bumpversion.files]]
+filename = "uv.lock"
+search = """
+[[package]]
+name = "seafile-mirror"
+version = "{current_version}"
+"""
+replace = """
+[[package]]
+name = "seafile-mirror"
+version = "{new_version}"
+"""
