@@ -30,7 +30,6 @@ seafile-mirror = "seafile_mirror.seafile_mirror:main"
 dev = [
     "ruff>=0.15.10",
     "ty>=0.0.29",
-    "bump-my-version>=1.2.4,<2",
 ]
 
 [tool.uv]
@@ -70,29 +69,3 @@ convention = "google"
 [tool.ty.src]
 include = ["seafile_mirror"]
 
-# Bump-My-Version
-[tool.bumpversion]
-commit = true
-tag = true
-sign_tags = true
-allow_dirty = false
-tag_name = "v{new_version}"
-
-[[tool.bumpversion.files]]
-filename = "pyproject.toml"
-regex = true
-search = "^version = \"{current_version}\""
-replace = "version = \"{new_version}\""
-
-[[tool.bumpversion.files]]
-filename = "uv.lock"
-search = """
-[[package]]
-name = "seafile-mirror"
-version = "{current_version}"
-"""
-replace = """
-[[package]]
-name = "seafile-mirror"
-version = "{new_version}"
-"""
