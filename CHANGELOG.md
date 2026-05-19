@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.2.4](https://github.com/mxmehl/seafile-mirror/compare/v0.2.3...v0.2.4) (2026-05-19)
+
+
+### 📦 CI Improvements
+
+* add latest-release-vulnerability-status check ([#9](https://github.com/mxmehl/seafile-mirror/issues/9)) ([8dae247](https://github.com/mxmehl/seafile-mirror/commit/8dae247d1af4766d4e418390e27a14ff27d9b548))
+* add zizmor workflow ([#6](https://github.com/mxmehl/seafile-mirror/issues/6)) ([efe5c80](https://github.com/mxmehl/seafile-mirror/commit/efe5c80dec8879f54050c6c2262bf3d2701054e4))
+* harden release-please app token permissions ([#10](https://github.com/mxmehl/seafile-mirror/issues/10)) ([bbdff11](https://github.com/mxmehl/seafile-mirror/commit/bbdff11802e21821bbd1267021405137cd0839a1))
+* restrict some workflows to only run upstream ([#8](https://github.com/mxmehl/seafile-mirror/issues/8)) ([1e3730e](https://github.com/mxmehl/seafile-mirror/commit/1e3730e682b8b662a58d2419d8bb962e81b03aa4))
+
 ## [0.2.3](https://github.com/mxmehl/seafile-mirror/compare/v0.2.2...v0.2.3) (2026-04-24)
 
 
