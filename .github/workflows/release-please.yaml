@@ -11,7 +11,6 @@ on:
 
 permissions:
   contents: write
-  issues: write
   pull-requests: write
 
 jobs:
@@ -24,6 +23,10 @@ jobs:
         with:
           client-id: ${{ secrets.RELEASER_CLIENT_ID }}
           private-key: ${{ secrets.RELEASER_PRIVATE_KEY }}
+          repositories: seafile-mirror
+          skip-token-revoke: false
+          permission-contents: write
+          permission-pull-requests: write
 
       - uses: googleapis/release-please-action@5c625bfb5d1ff62eadeeb3772007f7f66fdcf071 # v4.4.1
         with:
