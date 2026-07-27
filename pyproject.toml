@@ -51,7 +51,9 @@ line-length = 100
 
 [tool.ruff.lint]
 select = ["ALL"]
-ignore = ["T", "FBT", "LOG015", "COM812", "ERA001", "S310", "D205", "D212", "PTH123"]
+ignore = ["T", "FBT", "LOG015", "COM812", "ERA001", "S310", "D205", "D212", "PTH123",
+    "CPY",
+]
 [tool.ruff.lint.extend-per-file-ignores]
 "tests/*" = ["S101", "PLR", "PT011", "ANN001"]
 [tool.ruff.lint.pydocstyle]
