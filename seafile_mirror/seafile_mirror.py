@@ -97,7 +97,7 @@ def main() -> None:  # noqa: PLR0915
         sf_desync_all(cache)
 
     # Create list of libraries we handle(d) for final output
-    libsdone = {"libs": [], "bytes": 0, "time": 0}
+    libsdone = {"libs": [], "bytes": 0, "time": 0.0}
 
     # Go through users in config
     for access in config:
