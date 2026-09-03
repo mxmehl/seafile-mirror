@@ -1,5 +1,39 @@
 # Changelog
 
+## [0.2.4](https://github.com/mxmehl/seafile-mirror/compare/v0.2.3...v0.2.4) (2026-09-03)
+
+
+### 📦 CI Improvements
+
+* add latest-release-vulnerability-status check ([#9](https://github.com/mxmehl/seafile-mirror/issues/9)) ([8dae247](https://github.com/mxmehl/seafile-mirror/commit/8dae247d1af4766d4e418390e27a14ff27d9b548))
+* add zizmor workflow ([#6](https://github.com/mxmehl/seafile-mirror/issues/6)) ([efe5c80](https://github.com/mxmehl/seafile-mirror/commit/efe5c80dec8879f54050c6c2262bf3d2701054e4))
+* harden release-please app token permissions ([#10](https://github.com/mxmehl/seafile-mirror/issues/10)) ([bbdff11](https://github.com/mxmehl/seafile-mirror/commit/bbdff11802e21821bbd1267021405137cd0839a1))
+* restrict some workflows to only run upstream ([#8](https://github.com/mxmehl/seafile-mirror/issues/8)) ([1e3730e](https://github.com/mxmehl/seafile-mirror/commit/1e3730e682b8b662a58d2419d8bb962e81b03aa4))
+
+
+### ⚙️ Chores
+
+* add license-files, repository URL, and changelog URL to pyproject.toml ([#15](https://github.com/mxmehl/seafile-mirror/issues/15)) ([38828cc](https://github.com/mxmehl/seafile-mirror/commit/38828cce17e746e2a8cfb8264a890dea2cafec97))
+* **deps:** lock file maintenance ([#14](https://github.com/mxmehl/seafile-mirror/issues/14)) ([5c0e8aa](https://github.com/mxmehl/seafile-mirror/commit/5c0e8aa583934cb3431bcc51b85cf9b67b119988))
+* **deps:** lock file maintenance ([#21](https://github.com/mxmehl/seafile-mirror/issues/21)) ([118aa2a](https://github.com/mxmehl/seafile-mirror/commit/118aa2a839a2b903dc9354a04da8e616ad24d8d9))
+* **deps:** lock file maintenance ([#25](https://github.com/mxmehl/seafile-mirror/issues/25)) ([e01c70d](https://github.com/mxmehl/seafile-mirror/commit/e01c70de5f8042b6828921bee6fe128c42b7d1a9))
+* **deps:** lock file maintenance ([#28](https://github.com/mxmehl/seafile-mirror/issues/28)) ([d3805e5](https://github.com/mxmehl/seafile-mirror/commit/d3805e57a5ac37842744d47f901b12ea2fc4619b))
+* **deps:** lock file maintenance ([#30](https://github.com/mxmehl/seafile-mirror/issues/30)) ([b76afbb](https://github.com/mxmehl/seafile-mirror/commit/b76afbb3799371a9346a188ba71071fafbf64720))
+* **deps:** update actions/checkout action to v7.0.1 ([#19](https://github.com/mxmehl/seafile-mirror/issues/19)) ([010cf46](https://github.com/mxmehl/seafile-mirror/commit/010cf463d3a97c2b2ec4e7f05535cecc08767265))
+* **deps:** update astral-sh/setup-uv action to v10 ([#29](https://github.com/mxmehl/seafile-mirror/issues/29)) ([c25264a](https://github.com/mxmehl/seafile-mirror/commit/c25264ad7b68f426c11efa7bd615fcd9894cf44b))
+* **deps:** update dependency uv_build to &gt;=0.12.0,&lt;0.13.0 ([#23](https://github.com/mxmehl/seafile-mirror/issues/23)) ([0eb4f24](https://github.com/mxmehl/seafile-mirror/commit/0eb4f2446bd89b18e67652d487ce7b897e2ad384))
+* **deps:** update github actions group ([#11](https://github.com/mxmehl/seafile-mirror/issues/11)) ([8634031](https://github.com/mxmehl/seafile-mirror/commit/8634031fef85e14787cff47bdb9c76788e754da7))
+* **deps:** update github actions group ([#18](https://github.com/mxmehl/seafile-mirror/issues/18)) ([fb455ea](https://github.com/mxmehl/seafile-mirror/commit/fb455ea85d65d32c6a3216412bf1004f0eb94c48))
+* **deps:** update github actions group (major) ([#12](https://github.com/mxmehl/seafile-mirror/issues/12)) ([72c1147](https://github.com/mxmehl/seafile-mirror/commit/72c11478b3b2c1c8b8044e519e8260f8a1b8bdf4))
+* **deps:** update mxmehl/latest-release-vulnerability-status action to v1.3.0 ([#26](https://github.com/mxmehl/seafile-mirror/issues/26)) ([8d40593](https://github.com/mxmehl/seafile-mirror/commit/8d40593eecf5cd4059de27764a9c69d26b79ade3))
+* **deps:** update pypa/gh-action-pypi-publish action to v1.14.1 ([#17](https://github.com/mxmehl/seafile-mirror/issues/17)) ([3627c81](https://github.com/mxmehl/seafile-mirror/commit/3627c81512b9352fecb11de05507338bb2aa8c8e))
+* **deps:** update pypa/gh-action-pypi-publish action to v1.14.2 ([#24](https://github.com/mxmehl/seafile-mirror/issues/24)) ([24cef5c](https://github.com/mxmehl/seafile-mirror/commit/24cef5c4007d0410242f95a20cd91879d0bf3e5b))
+* **deps:** update zizmorcore/zizmor-action action to v0.6.0 ([#16](https://github.com/mxmehl/seafile-mirror/issues/16)) ([cf28897](https://github.com/mxmehl/seafile-mirror/commit/cf28897a9a5979a30cef2db450282a2ec340b041))
+* **deps:** update zizmorcore/zizmor-action action to v0.6.1 ([#20](https://github.com/mxmehl/seafile-mirror/issues/20)) ([6d65d86](https://github.com/mxmehl/seafile-mirror/commit/6d65d8671673ac8dd6995b2373a1e7dde309ba56))
+* **deps:** update zizmorcore/zizmor-action action to v0.6.2 ([#27](https://github.com/mxmehl/seafile-mirror/issues/27)) ([89814bc](https://github.com/mxmehl/seafile-mirror/commit/89814bc0eaf62c6bacdeddbde1d204b388a80674))
+* **deps:** update zizmorcore/zizmor-action action to v0.6.3 ([#31](https://github.com/mxmehl/seafile-mirror/issues/31)) ([14e087f](https://github.com/mxmehl/seafile-mirror/commit/14e087fa6d44de291098092e421d6adc46608c92))
+* disable unnecessary ruff check ([#22](https://github.com/mxmehl/seafile-mirror/issues/22)) ([f13a92a](https://github.com/mxmehl/seafile-mirror/commit/f13a92a9b0677f8d986c9e2e71d1bee18b374f71))
+
 ## [0.2.3](https://github.com/mxmehl/seafile-mirror/compare/v0.2.2...v0.2.3) (2026-04-24)
 
 
