@@ -4,7 +4,7 @@
 
 """Functions specific to Seafile for seafile mirror."""
 
-import datetime
+import datetime as dt
 import logging
 import subprocess
 import sys
@@ -210,8 +210,8 @@ def sf_bump_cache_status(dbdict: dict, libid: str, status: str, duration: float 
     logging.debug("Updating cache for library '%s' to status '%s'", libid, status)
     # Library has been successfully synced
     if status == "synced":
-        lastsync = datetime.datetime.now()  # noqa: DTZ005
-        lastsync = lastsync - datetime.timedelta(minutes=duration + 2)
+        lastsync = dt.datetime.now()  # noqa: DTZ005
+        lastsync = lastsync - dt.timedelta(minutes=duration + 2)
         db_update(
             dbdict,
             libid,
@@ -230,9 +230,9 @@ def sf_lastsync_old_enough(dbdict: dict, libid: str, force: bool, resyncinterval
     # Check if there actually has been an entry for the last sync
     if lastsync:
         # Convert to datetime object
-        lastsync = datetime.datetime.fromisoformat(lastsync)
+        lastsync = dt.datetime.fromisoformat(lastsync)
         # Test if time difference (hours) is smaller than resyncinterval
-        if datetime.datetime.now() - lastsync < datetime.timedelta(days=resyncinterval):  # noqa: DTZ005
+        if dt.datetime.now() - lastsync < dt.timedelta(days=resyncinterval):  # noqa: DTZ005
             logging.debug(
                 "Last sync of library '%s' is newer than limit (%s days)",
                 libid,
