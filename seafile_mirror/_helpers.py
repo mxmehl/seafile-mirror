@@ -13,14 +13,14 @@ def get_lock(process_name: str) -> None:
     """Get the lock for this program to avoid double-execution."""
     # Without holding a reference to our socket somewhere it gets garbage
     # collected when the function exits
-    get_lock._lock_socket = socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM)  # ty: ignore[unresolved-attribute]  # noqa: SLF001
+    get_lock._lock_socket = socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM)  # ty: ignore[missing-attribute]  # noqa: SLF001
 
     try:
         # The null byte (\0) means the socket is created
         # in the abstract namespace instead of being created
         # on the file system itself.
         # Works only in Linux
-        get_lock._lock_socket.bind("\0" + process_name)  # ty: ignore[unresolved-attribute]  # noqa: SLF001
+        get_lock._lock_socket.bind("\0" + process_name)  # ty: ignore[missing-attribute]  # noqa: SLF001
     except OSError:
         logging.critical("This script is already executed in another instance. Abort.")
         sys.exit(1)
