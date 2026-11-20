@@ -7,7 +7,7 @@ name = "seafile-mirror"
 version = "0.2.3"
 description = "Handle clean read-only (re-)syncs of Seafile libraries to mirror them"
 authors = [{ name = "Max Mehl", email = "mail@mehl.mx" }]
-requires-python = ">=3.10,<4"
+requires-python = ">=3.11,<4"
 readme = "README.md"
 license = "Apache-2.0"
 license-files = ["LICENSE", "LICENSES/*"]
@@ -16,11 +16,11 @@ classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Environment :: Console",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3.15",
 ]
 dependencies = ["pyyaml>=6.0.1,<7"]
 
